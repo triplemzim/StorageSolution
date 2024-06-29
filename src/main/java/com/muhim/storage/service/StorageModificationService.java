@@ -1,9 +1,10 @@
 package com.muhim.storage.service;
 
-import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * File modification and deletion service
+ */
 public interface StorageModificationService {
-    @Transactional
     void deleteFilesByUserAndName(String user, String filename);
 
     void renameFile(String user, String filename, String newFilename);

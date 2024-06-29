@@ -8,6 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 
+/**
+ * Wrapper interface to enhance operation and query to MongoDB
+ */
 public interface FileMetaDataRepository extends MongoRepository<FileMetadata, String> {
     boolean existsByFilenameAndUser(String filename, String user);
 

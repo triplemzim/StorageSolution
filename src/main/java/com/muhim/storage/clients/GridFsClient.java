@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 
+/**
+ * GridFsClient to mediate communication between service and database
+ */
 @Component
 public class GridFsClient {
 
