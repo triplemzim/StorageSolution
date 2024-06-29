@@ -31,4 +31,4 @@ jobs:
           context: ./storage-app
           file: ./storage-app/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/StorageSolution:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/storage:latest
