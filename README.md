@@ -39,8 +39,22 @@ StorageSolution is a Spring Boot application designed for easy sharing of files 
     git clone https://github.com/triplemzim/StorageSolution.git
     cd StorageSolution
     ```
+   
+2. **Start MongoDB and Spring Boot app using Docker Compose**
 
-2. **Start MongoDB using Docker Compose**:
+    ```sh
+   docker-compose -f docker_compose.yml -p storage up -d
+    ```
+   
+3. **To shut down docker containers**
+
+    ```sh
+    docker-compose -f docker_compose.yml down
+    ```
+
+#### **Alternatively to start Database and Spring Boot separately -**
+
+1. **Start MongoDB using Docker Compose**:
 
    Make sure you have Docker and Docker Compose installed. Use the provided `docker-compose.yml` file to set up MongoDB:
 
@@ -48,7 +62,7 @@ StorageSolution is a Spring Boot application designed for easy sharing of files 
     docker-compose -f docker_mongodb.yml -p storage up -d
     ```
 
-3. **Run the Spring Boot application**:
+2. **Run the Spring Boot application**:
 
    Ensure you have Java 11 or higher and Maven installed. Run the application using Maven:
 
