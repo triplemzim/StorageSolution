@@ -5,8 +5,6 @@ import com.muhim.storage.dto.FileMetadataDTO;
 import com.muhim.storage.enums.FileVisibility;
 import com.muhim.storage.model.FileMetadata;
 import com.muhim.storage.repository.FileMetaDataRepository;
-import jakarta.servlet.http.HttpServletRequest;
-import org.apache.tika.Tika;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,9 +33,6 @@ class StorageUploadServiceImplTest {
 
     @Mock
     private MultipartFile file;
-
-    @Mock
-    private Tika tika;
 
     @InjectMocks
     private StorageUploadServiceImpl storageUploadServiceImpl;
@@ -98,9 +93,8 @@ class StorageUploadServiceImplTest {
         List<String> tags = List.of("tag1", "tag2", "tag3", "tag4", "tag5", "tag6");
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> {
-            storageUploadServiceImpl.saveFile(user, file, visibility, tags, baseUrl);
-        });
+        assertThrows(IllegalArgumentException.class, () ->
+                storageUploadServiceImpl.saveFile(user, file, visibility, tags, baseUrl));
     }
 
 }

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class StorageController {
             @RequestParam("file") MultipartFile file,
             @RequestParam("visibility") FileVisibility visibility,
             @RequestParam("tags") List<String> tags,
-            HttpServletRequest request) throws IOException {
+            HttpServletRequest request) {
         try {
             return ResponseEntity.ok()
                     .body(storageUploadService.saveFile(user, file, visibility, tags, getBaseUrl(request)));

@@ -59,9 +59,7 @@ class StorageDownloadServiceImplTest {
         when(fileMetaDataRepository.existsByFileId(objectId)).thenReturn(false);
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> {
-            storageDownloadService.downloadFileStream(fileId);
-        });
+        assertThrows(IllegalArgumentException.class, () -> storageDownloadService.downloadFileStream(fileId));
     }
 
 }

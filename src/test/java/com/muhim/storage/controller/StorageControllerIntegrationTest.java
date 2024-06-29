@@ -47,7 +47,7 @@ public class StorageControllerIntegrationTest {
 
     @BeforeTestClass
     @Autowired
-    public void beforeClass(MongoDatabaseFactory mongoDatabaseFactory) throws Exception {
+    public void beforeClass(MongoDatabaseFactory mongoDatabaseFactory) {
         gridFSBucket = GridFSBuckets.create(mongoDatabaseFactory.getMongoDatabase());
     }
 

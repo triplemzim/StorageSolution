@@ -68,9 +68,8 @@ class StorageModificationServiceImplTest {
         when(fileMetaDataRepository.existsByFilenameAndUser(filename, user)).thenReturn(false);
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> {
-            storageModificationService.deleteFilesByUserAndName(user, filename);
-        });
+        assertThrows(IllegalArgumentException.class, () ->
+                storageModificationService.deleteFilesByUserAndName(user, filename));
 
         verify(fileMetaDataRepository, times(1)).existsByFilenameAndUser(filename, user);
         verify(fileMetaDataRepository, never()).findByFilenameAndUser(anyString(), anyString());
@@ -112,9 +111,8 @@ class StorageModificationServiceImplTest {
         when(fileMetaDataRepository.existsByFilenameAndUser(filename, user)).thenReturn(false);
 
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> {
-            storageModificationService.renameFile(user, filename, newFilename);
-        });
+        assertThrows(IllegalArgumentException.class, () ->
+                storageModificationService.renameFile(user, filename, newFilename));
 
         verify(fileMetaDataRepository, times(1)).existsByFilenameAndUser(filename, user);
         verify(fileMetaDataRepository, never()).findByFilenameAndUser(anyString(), anyString());
