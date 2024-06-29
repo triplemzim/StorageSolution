@@ -46,15 +46,15 @@ class StorageModificationServiceImplTest {
                 .fileId(fileId)
                 .build();
 
-        when(fileMetaDataRepository.existsByFilenameAndUser(filename, user)).thenReturn(true);
-        when(fileMetaDataRepository.findByFilenameAndUser(filename, user)).thenReturn(mockMetadata);
+        when(fileMetaDataRepository.existsByUserAndFilename(user, filename)).thenReturn(true);
+        when(fileMetaDataRepository.findByUserAndFilename(user, filename)).thenReturn(mockMetadata);
 
         // Act
         storageModificationService.deleteFilesByUserAndName(user, filename);
 
         // Assert
-        verify(fileMetaDataRepository, times(1)).existsByFilenameAndUser(filename, user);
-        verify(fileMetaDataRepository, times(1)).findByFilenameAndUser(filename, user);
+        verify(fileMetaDataRepository, times(1)).existsByUserAndFilename(user, filename);
+        verify(fileMetaDataRepository, times(1)).findByUserAndFilename(user, filename);
         verify(gridFsClient, times(1)).delete(fileId);
         verify(fileMetaDataRepository, times(1)).delete(mockMetadata);
     }
@@ -65,14 +65,14 @@ class StorageModificationServiceImplTest {
         String user = "testuser";
         String filename = "testfile.txt";
 
-        when(fileMetaDataRepository.existsByFilenameAndUser(filename, user)).thenReturn(false);
+        when(fileMetaDataRepository.existsByUserAndFilename(filename, user)).thenReturn(false);
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () ->
                 storageModificationService.deleteFilesByUserAndName(user, filename));
 
-        verify(fileMetaDataRepository, times(1)).existsByFilenameAndUser(filename, user);
-        verify(fileMetaDataRepository, never()).findByFilenameAndUser(anyString(), anyString());
+        verify(fileMetaDataRepository, times(1)).existsByUserAndFilename(user, filename);
+        verify(fileMetaDataRepository, never()).findByUserAndFilename(anyString(), anyString());
         verify(gridFsClient, never()).delete(any());
         verify(fileMetaDataRepository, never()).delete(any());
     }
@@ -89,15 +89,15 @@ class StorageModificationServiceImplTest {
                 .filename(filename)
                 .build();
 
-        when(fileMetaDataRepository.existsByFilenameAndUser(filename, user)).thenReturn(true);
-        when(fileMetaDataRepository.findByFilenameAndUser(filename, user)).thenReturn(mockMetadata);
+        when(fileMetaDataRepository.existsByUserAndFilename(user, filename)).thenReturn(true);
+        when(fileMetaDataRepository.findByUserAndFilename(user, filename)).thenReturn(mockMetadata);
 
         // Act
         storageModificationService.renameFile(user, filename, newFilename);
 
         // Assert
-        verify(fileMetaDataRepository, times(1)).existsByFilenameAndUser(filename, user);
-        verify(fileMetaDataRepository, times(1)).findByFilenameAndUser(filename, user);
+        verify(fileMetaDataRepository, times(1)).existsByUserAndFilename(user, filename);
+        verify(fileMetaDataRepository, times(1)).findByUserAndFilename(user, filename);
         verify(fileMetaDataRepository, times(1)).save(mockMetadata);
     }
 
@@ -108,14 +108,14 @@ class StorageModificationServiceImplTest {
         String filename = "testfile.txt";
         String newFilename = "newfile.txt";
 
-        when(fileMetaDataRepository.existsByFilenameAndUser(filename, user)).thenReturn(false);
+        when(fileMetaDataRepository.existsByUserAndFilename(user, filename)).thenReturn(false);
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () ->
                 storageModificationService.renameFile(user, filename, newFilename));
 
-        verify(fileMetaDataRepository, times(1)).existsByFilenameAndUser(filename, user);
-        verify(fileMetaDataRepository, never()).findByFilenameAndUser(anyString(), anyString());
+        verify(fileMetaDataRepository, times(1)).existsByUserAndFilename(user, filename);
+        verify(fileMetaDataRepository, never()).findByUserAndFilename(anyString(), anyString());
         verify(fileMetaDataRepository, never()).save(any());
     }
 }

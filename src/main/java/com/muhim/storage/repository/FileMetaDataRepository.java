@@ -12,9 +12,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * Wrapper interface to enhance operation and query to MongoDB
  */
 public interface FileMetaDataRepository extends MongoRepository<FileMetadata, String> {
-    boolean existsByFilenameAndUser(String filename, String user);
+    boolean existsByUserAndFilename(String user, String filename);
 
     boolean existsByFileId(ObjectId fileId);
+
+    boolean existsByUserAndFileRollingHash(String user, String fileRollingHash);
 
     Page<FileMetadata> findByVisibility(FileVisibility visibility, Pageable pageable);
 
@@ -30,5 +32,5 @@ public interface FileMetaDataRepository extends MongoRepository<FileMetadata, St
 
     FileMetadata findByFileId(ObjectId fileId);
 
-    FileMetadata findByFilenameAndUser(String filename, String user);
+    FileMetadata findByUserAndFilename(String user, String filename);
 }

@@ -13,8 +13,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 
@@ -43,12 +45,13 @@ class StorageUploadServiceImplTest {
     }
 
     @Test
-    void saveFile_shouldSaveFileMetadata() throws IOException {
+    void saveFile_shouldSaveFileMetadata() throws IOException, NoSuchAlgorithmException {
         // Arrange
         String user = "testUser";
         String filename = "testFile.txt";
         String contentType = "text/plain";
         String baseUrl = "localhost:8080";
+        String fileRollingHash = "SHA256";
         FileVisibility visibility = FileVisibility.PUBLIC;
         List<String> tags = List.of("tag1", "tag2");
         ObjectId objectId = new ObjectId();
@@ -57,6 +60,9 @@ class StorageUploadServiceImplTest {
         when(file.getContentType()).thenReturn(contentType);
         when(file.getInputStream()).thenReturn(mock(InputStream.class));
         when(gridFsClient.store(any(), any(), any())).thenReturn(objectId);
+        String dummyString = "dummyString";
+        InputStream inputStream = new ByteArrayInputStream(dummyString.getBytes());
+        when(gridFsClient.openDownloadStream(any())).thenReturn(inputStream);
 
         FileMetadata fileMetadata = FileMetadata.builder()
                 .user(user)
@@ -67,6 +73,7 @@ class StorageUploadServiceImplTest {
                 .fileSize(file.getSize())
                 .contentType(contentType)
                 .uploadDate(new Date())
+                .fileRollingHash(fileRollingHash)
                 .build();
 
         when(fileMetaDataRepository.save(any(FileMetadata.class))).thenReturn(fileMetadata);

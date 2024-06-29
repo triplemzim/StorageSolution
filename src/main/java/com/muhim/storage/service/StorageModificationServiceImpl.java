@@ -21,21 +21,21 @@ public class StorageModificationServiceImpl implements StorageModificationServic
 
     @Override
     public void deleteFilesByUserAndName(String user, String filename) {
-        if (!fileMetaDataRepository.existsByFilenameAndUser(filename, user)) {
+        if (!fileMetaDataRepository.existsByUserAndFilename(user, filename)) {
             throw new IllegalArgumentException("File does not exist!");
         }
-        FileMetadata fileMetadata = fileMetaDataRepository.findByFilenameAndUser(filename, user);
+        FileMetadata fileMetadata = fileMetaDataRepository.findByUserAndFilename(user, filename);
         gridFsClient.delete(fileMetadata.getFileId());
         fileMetaDataRepository.delete(fileMetadata);
     }
 
     @Override
     public void renameFile(String user, String filename, String newFilename) {
-        if (!fileMetaDataRepository.existsByFilenameAndUser(filename, user)) {
+        if (!fileMetaDataRepository.existsByUserAndFilename(user, filename)) {
             throw new IllegalArgumentException("File does not exist or you don't have write access to it!");
         }
 
-        FileMetadata fileMetadata = fileMetaDataRepository.findByFilenameAndUser(filename, user);
+        FileMetadata fileMetadata = fileMetaDataRepository.findByUserAndFilename(user, filename);
         fileMetadata.setFilename(newFilename);
         fileMetaDataRepository.save(fileMetadata);
     }

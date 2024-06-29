@@ -4,6 +4,10 @@ import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+
 
 class FileUtilsTest {
 
@@ -16,5 +20,14 @@ class FileUtilsTest {
 
         Assertions.assertTrue(downloadLink.contains(baseUrl));
         Assertions.assertTrue(downloadLink.contains(hexId));
+    }
+
+    @Test
+    void generateFileRollingHash() throws IOException, NoSuchAlgorithmException {
+        String dummyString = "dummyString";
+        String rollingHash = FileUtils.generateFileRollingHash(new ByteArrayInputStream(dummyString.getBytes()));
+
+        Assertions.assertNotNull(rollingHash);
+        Assertions.assertFalse(rollingHash.isEmpty());
     }
 }

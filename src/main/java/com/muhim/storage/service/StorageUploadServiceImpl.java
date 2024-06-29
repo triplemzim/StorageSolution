@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class StorageUploadServiceImpl implements StorageUploadService {
                                     MultipartFile file,
                                     FileVisibility visibility,
                                     List<String> tags,
-                                    String baseUrl) throws IOException {
+                                    String baseUrl) throws IOException, NoSuchAlgorithmException {
 
         String contentType = file.getContentType();
         if (contentType == null || contentType.isEmpty()) {
@@ -50,7 +51,9 @@ public class StorageUploadServiceImpl implements StorageUploadService {
         validateContentType(contentType);
 
         ObjectId gridFsObjectId = saveFile(file.getOriginalFilename(), file, contentType);
-        validateFile(user, file, gridFsObjectId);
+
+        String fileRollingHash = FileUtils.generateFileRollingHash(gridFsClient.openDownloadStream(gridFsObjectId));
+        validateFile(user, file, gridFsObjectId, fileRollingHash);
 
 
         FileMetadata fileMetadata = FileMetadata.builder()
@@ -62,6 +65,7 @@ public class StorageUploadServiceImpl implements StorageUploadService {
                 .fileSize(file.getSize())
                 .contentType(contentType)
                 .uploadDate(new Date())
+                .fileRollingHash(fileRollingHash)
                 .build();
 
 
@@ -90,13 +94,12 @@ public class StorageUploadServiceImpl implements StorageUploadService {
         }
     }
 
-    private void validateFile(String user, MultipartFile file, ObjectId gridFsObjectId) {
-        if (fileMetaDataRepository.existsByFilenameAndUser(file.getOriginalFilename(), user)) {
+    private void validateFile(String user, MultipartFile file, ObjectId gridFsObjectId, String fileRollingHash) {
+        if (fileMetaDataRepository.existsByUserAndFilename(user, file.getOriginalFilename()) ||
+                fileMetaDataRepository.existsByUserAndFileRollingHash(user, fileRollingHash)) {
             gridFsClient.delete(gridFsObjectId);
             throw new IllegalArgumentException("File already exists");
         }
-
-        //TODO validate file content
     }
 
     private void validateTags(List<String> tags) {

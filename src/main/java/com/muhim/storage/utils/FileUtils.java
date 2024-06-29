@@ -2,6 +2,11 @@ package com.muhim.storage.utils;
 
 import org.bson.types.ObjectId;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class FileUtils {
 
     /**
@@ -15,5 +20,25 @@ public class FileUtils {
         return String.format(baseUrl +
                         "/api/storage/v1/files/%s/download",
                 objectId.toHexString());
+    }
+
+    public static String generateFileRollingHash(InputStream inputStream) throws IOException, NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+
+        try (inputStream) {
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                md.update(buffer, 0, bytesRead);
+            }
+        }
+
+        byte[] hashBytes = md.digest();
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashBytes) {
+            sb.append(String.format("%02x", b));
+        }
+
+        return sb.toString();
     }
 }

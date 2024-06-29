@@ -5,6 +5,7 @@ import com.muhim.storage.enums.FileVisibility;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -14,5 +15,5 @@ public interface StorageUploadService {
     FileMetadataDTO saveFile(String user,
                              MultipartFile file,
                              FileVisibility visibility,
-                             List<String> tags, String request) throws IOException;
+                             List<String> tags, String request) throws IOException, NoSuchAlgorithmException;
 }

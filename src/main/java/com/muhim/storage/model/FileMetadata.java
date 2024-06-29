@@ -24,4 +24,5 @@ public class FileMetadata {
     private Date uploadDate;
     private String contentType;
     private long fileSize;
+    private String fileRollingHash;
 }
