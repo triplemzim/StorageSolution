@@ -180,5 +180,17 @@ Unit tests are provided to ensure the functionality of the service. To run the t
 mvn test
 ```
 
+## Release
+
+The following scenarios will trigger a github workflow to publish docker image
+- Pull request to branch `master`
+- Push to branch `master`
+
+[Docker image](https://hub.docker.com/repository/docker/triplemzim/storage/general) can be pulled using the following command-
+```sh
+docker pull triplemzim/storage:latest
+```
+
+
 ## Contact
 For any questions or feedback, please contact triplemzim@gmail.com.
