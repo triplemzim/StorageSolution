@@ -10,6 +10,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Model class for handling file metadata in Database
+ *
+ * @author muhim
+ */
 @Data
 @Document
 @Builder

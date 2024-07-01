@@ -1,4 +1,4 @@
-package com.muhim.storage.page;
+package com.muhim.storage.helper;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Wrapper interface with constructor o help with deserializing the response
- * @param <T>
+ * Wrapper implementation with constructors to help with deserializing the response
+ *
+ * @author muhim
  */
 public class CustomPageImpl<T> extends PageImpl<T> {
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

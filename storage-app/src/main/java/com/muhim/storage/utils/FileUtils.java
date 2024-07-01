@@ -7,6 +7,11 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Utility class to provide common utility methods for storage/file operations
+ *
+ * @author muhim
+ */
 public class FileUtils {
 
     /**
@@ -22,6 +27,15 @@ public class FileUtils {
                 objectId.toHexString());
     }
 
+    /**
+     * Generate a rolling hash using MD5 algorithm
+     * Uses 1024 byte chunk size for each hash
+     *
+     * @param inputStream to consume and generate the rolling hash
+     * @return md5 hash string
+     * @throws IOException can throw IOException on issues accessing the input stream
+     * @throws NoSuchAlgorithmException can throw while creating message digest object with `MD5` algorithm
+     */
     public static String generateFileRollingHash(InputStream inputStream) throws IOException, NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
 

@@ -9,7 +9,7 @@ import com.mongodb.client.gridfs.model.GridFSFile;
 import com.muhim.storage.dto.FileMetadataDTO;
 import com.muhim.storage.enums.FileVisibility;
 import com.muhim.storage.repository.FileMetaDataRepository;
-import com.muhim.storage.page.CustomPageImpl;
+import com.muhim.storage.helper.CustomPageImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +30,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Integration tests for controller class providing tests for each endpoint
+ * Prerequisite: A MongoDB instance is required which will be cleaned before running each test
+ * DO NOT USE stating/production DB connection to run the tests
+ *
+ * @author muhim
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class StorageControllerIntegrationTest {

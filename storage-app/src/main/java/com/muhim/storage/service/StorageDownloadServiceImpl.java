@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 
+/**
+ * StorageDownloadService implementation
+ *
+ * @author muhim
+ */
 @Service
 public class StorageDownloadServiceImpl implements StorageDownloadService {
 

@@ -17,6 +17,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * StorageUploadService implementation
+ *
+ * @author muhim
+ */
 @Service
 public class StorageUploadServiceImpl implements StorageUploadService {
 
@@ -26,6 +31,9 @@ public class StorageUploadServiceImpl implements StorageUploadService {
 
     private final GridFsClient gridFsClient;
 
+    /**
+     * Apache library to help analyse the file content-type
+     */
     private final Tika tika;
 
     @Autowired

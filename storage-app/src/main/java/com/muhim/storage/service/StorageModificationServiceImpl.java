@@ -6,6 +6,11 @@ import com.muhim.storage.repository.FileMetaDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * StorageModificationService implementation
+ *
+ * @author muhim
+ */
 @Service
 public class StorageModificationServiceImpl implements StorageModificationService {
 

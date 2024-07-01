@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * StorageAccessService implementation
+ *
+ * @author muhim
+ */
 @Service
 public class StorageAccessServiceImpl implements StorageAccessService {
 

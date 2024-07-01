@@ -9,7 +9,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 
 /**
- * Wrapper interface to enhance operation and query to MongoDB
+ * Wrapper interface to enhance operations and provide additional queries to MongoDB
+ *
+ * @author muhim
  */
 public interface FileMetaDataRepository extends MongoRepository<FileMetadata, String> {
     boolean existsByUserAndFilename(String user, String filename);

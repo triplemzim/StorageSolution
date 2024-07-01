@@ -4,6 +4,8 @@ import java.io.InputStream;
 
 /**
  * File download service
+ *
+ * @author muhim
  */
 public interface StorageDownloadService {
     /**

@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * Controller for storage solution
- * Provides REST API endpoint for file management
+ * Provides REST API endpoints for file management
  *
  * @author muhim
  */

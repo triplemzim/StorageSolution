@@ -11,7 +11,10 @@ import org.springframework.stereotype.Component;
 import java.io.InputStream;
 
 /**
- * GridFsClient to mediate communication between service and database
+ * GridFsClient to mediate the communication between service and database
+ * It uses GrdFsTemplate and GridFsBucket to enable database operations for files
+ *
+ * @author muhim
  */
 @Component
 public class GridFsClient {
